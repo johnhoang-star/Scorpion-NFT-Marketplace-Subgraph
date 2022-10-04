@@ -1,0 +1,36 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Marketplace
+    network: bsc
+    source:
+      address: "0x43519CF5E922cE3C61B48Da16004C01f9Cc1Cab1"
+      abi: Marketplace
+      startBlock: 20285811
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - EV_NFT_Listed
+        - EV_NFT_Minted
+        - EV_NFT_Purchased
+        - EV_NFT_Ready
+        - OwnershipTransferred
+      abis:
+        - name: Marketplace
+          file: ./abis/Marketplace.json
+      eventHandlers:
+        - event: EV_NFT_Listed(uint32,address,uint256,bool,uint256)
+          handler: handleEV_NFT_Listed
+        - event: EV_NFT_Minted(uint32,uint8,uint256,address,bool,uint256)
+          handler: handleEV_NFT_Minted
+        - event: EV_NFT_Purchased(uint32,address,address,uint256,uint256)
+          handler: handleEV_NFT_Purchased
+        - event: EV_NFT_Ready(uint32,uint256,uint8)
+          handler: handleEV_NFT_Ready
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/marketplace.ts

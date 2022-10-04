@@ -1,0 +1,13 @@
+type NFTItem @entity {
+  id: ID!
+  tokenId: Int
+  BaseUrl: String!
+  ImgUrl: String
+  level: Int!
+  price: String
+  creator: Bytes
+  holder: Bytes
+  type: String!
+  status: String!
+  updatedate: String
+}
